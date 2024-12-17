@@ -1,0 +1,26 @@
+/* TailwindCSS classes are used; if not using Tailwind, you can write equivalent styles */
+
+.table-auto th,
+.table-auto td {
+  border: 1px solid #e5e7eb; /* Light gray border */
+}
+
+.table-auto th {
+  background-color: #f3f4f6; /* Light background for headers */
+  text-align: left;
+  font-weight: 600;
+}
+
+.table-auto tr:hover {
+  background-color: #f9fafb; /* Light hover effect */
+}
+
+.overflow-auto {
+  overflow-x: auto; /* Horizontal scroll for large tables */
+  overflow-y: auto; /* Vertical scroll */
+}
+
+.max-height-70 {
+    max-height: 70vh; /* Max height for table */
+  }
+  

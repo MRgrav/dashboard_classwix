@@ -1,0 +1,46 @@
+<div class="p-6 bg-gray-100 min-h-screen">
+  <!-- Total Students Box -->
+  <div class="bg-white p-6 rounded-lg shadow-lg mb-6">
+    <div class="text-2xl font-semibold text-gray-800">Total Students</div>
+    <div class="text-4xl font-bold text-blue-600">{{ students.length }}</div>
+  </div>
+
+  <!-- Student List Section -->
+  <div class="bg-white p-6 rounded-lg shadow-lg">
+    <div class="mb-4 text-xl font-semibold text-gray-800">Student List</div>
+    <div class="overflow-auto max-h-[70vh] border rounded-lg">
+      <table class="min-w-full table-auto border-collapse">
+        <thead class="bg-gray-200 sticky top-0 shadow">
+          <tr>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">ID</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Name</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Age</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Email</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Class</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Contact</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">WhatsApp</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Address</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Subject</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Created At</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Updated At</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of students" class="border-t hover:bg-gray-50">
+            <td class="px-4 py-2 text-sm text-gray-700">{{ student.id }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ student.name }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ student.age }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ student.email }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ student.class }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ student.contact_number }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ student.whatsapp_number }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ student.address }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ student.subject }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ student.created_at }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ student.updated_at }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

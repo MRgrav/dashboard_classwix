@@ -1,0 +1,32 @@
+<nav class="bg-white shadow-sm text-white p-4 flex justify-between items-center">
+    <!-- Logo or title (optional) -->
+    <div class="text-lg font-semibold text-blue-500">Dashboard</div>
+  
+    <!-- Navbar Right Section -->
+    <div class="flex items-center space-x-4">
+      <!-- Username Circle with Dropdown -->
+      <div class="relative">
+        <!-- Circle Icon (showing first letter of username) -->
+        <button
+          (click)="toggleDropdown()"
+          class="bg-blue-500 text-white rounded-full h-10 w-10 flex items-center justify-center font-semibold"
+        >
+          <!-- First letter of username or fallback 'N' -->
+          <span>{{ username?.charAt(0)?.toUpperCase() || 'N' }}</span>
+        </button>
+  
+        <!-- Dropdown Menu -->
+        <div *ngIf="isDropdownOpen" class="absolute right-0 mt-2 w-32 bg-white shadow-md rounded-lg">
+          <ul>
+            <li>
+              <a href="/profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Profile</a>
+            </li>
+            <li>
+              <a href="/logout" (click)="logout()" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
