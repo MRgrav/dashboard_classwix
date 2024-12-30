@@ -1,0 +1,50 @@
+<div class="flex flex-col h-screen bg-gray-800 text-white w-64">
+    <!-- Sidebar Header -->
+    <div class="flex items-center justify-center h-16 border-b border-gray-700">
+      <h1 class="text-lg font-bold">My Dashboard</h1>
+    </div>
+  
+    <!-- Sidebar Links -->
+    <nav class="flex-grow p-4">
+      <ul class="space-y-4">
+        <li>
+          <a
+            routerLink="/dashboard"
+            routerLinkActive="bg-gray-700"
+            class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-md"
+          >
+            <span class="material-icons">dashboard</span>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/add-course"
+            routerLinkActive="bg-gray-700"
+            class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-md"
+          >
+            <span class="material-icons">library_add</span>
+            <span>Add Course</span>
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/add-component"
+            routerLinkActive="bg-gray-700"
+            class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-md"
+          >
+            <span class="material-icons">add_box</span>
+            <span>Add Component</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  
+    <!-- Sidebar Footer -->
+    <div class="p-4 border-t border-gray-700">
+      <a href="#" class="block text-center text-sm text-gray-400 hover:underline">
+        Logout
+      </a>
+    </div>
+  </div>
+  

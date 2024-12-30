@@ -1,4 +1,14 @@
-<app-navbar *ngIf="!hideNavbar"></app-navbar>
-<router-outlet></router-outlet>
-
-
+<div class="flex">
+    <!-- Sidebar visible only when hideSidebar is false -->
+    <app-sidebar *ngIf="!hideSidebar"></app-sidebar>
+  
+    <!-- Main content area -->
+    <div class="flex-1">
+      <!-- Navbar visible only when hideNavbar is false -->
+      <app-navbar *ngIf="!hideNavbar"></app-navbar>
+  
+      <!-- Routed content (dashboard, etc.) will be rendered here -->
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  
