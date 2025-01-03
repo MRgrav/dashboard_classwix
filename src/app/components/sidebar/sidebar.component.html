@@ -1,31 +1,37 @@
-<div class="flex flex-col h-screen bg-gray-800 text-white w-64">
+<div class="flex">
+  <!-- Sidebar -->
+  <div
+    [ngClass]="{ 'w-64': isSidebarOpen, 'w-16': !isSidebarOpen }"
+    class="flex flex-col h-screen bg-gray-800 text-white fixed transition-all duration-300"
+  >
     <!-- Sidebar Header -->
-    <div class="flex items-center justify-center h-16 border-b border-gray-700">
-      <h1 class="text-lg font-bold">My Dashboard</h1>
+    <div class="flex items-center justify-between h-16 px-4 border-b border-gray-700">
+      <h1 *ngIf="isSidebarOpen" class="text-lg font-bold">My Dashboard</h1>
+      <button (click)="toggleSidebar()" class="text-white focus:outline-none md:hidden">
+        <span class="material-icons">menu</span>
+      </button>
     </div>
-  
+
     <!-- Sidebar Links -->
     <nav class="flex-grow p-4">
       <ul class="space-y-4">
         <li>
           <a
-            routerLink="/dashboard"
-            routerLinkActive="bg-gray-700"
-            class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-md"
-          >
-            <span class="material-icons">dashboard</span>
-            <span>Dashboard</span>
-          </a>
+          (click)="navigateToDashboard()"
+          class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-md cursor-pointer"
+        >
+          <span class="material-icons">library_add</span>
+          <span *ngIf="isSidebarOpen">Dashboard</span>
+        </a>
         </li>
         <li>
           <a
-            routerLink="/add-course"
-            routerLinkActive="bg-gray-700"
-            class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-md"
-          >
-            <span class="material-icons">library_add</span>
-            <span>Add Course</span>
-          </a>
+    (click)="navigateToCourses()"
+    class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-md cursor-pointer"
+  >
+    <span class="material-icons">library_add</span>
+    <span *ngIf="isSidebarOpen">Courses</span>
+  </a>
         </li>
         <li>
           <a
@@ -34,17 +40,20 @@
             class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-md"
           >
             <span class="material-icons">add_box</span>
-            <span>Add Component</span>
+            <span *ngIf="isSidebarOpen">Add Component</span>
           </a>
         </li>
       </ul>
     </nav>
-  
+
     <!-- Sidebar Footer -->
     <div class="p-4 border-t border-gray-700">
-      <a href="#" class="block text-center text-sm text-gray-400 hover:underline">
+      <a
+        href="#"
+        class="block text-center text-sm text-gray-400 hover:underline"
+      >
         Logout
       </a>
     </div>
   </div>
-  
+</div>
