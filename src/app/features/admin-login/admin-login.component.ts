@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router'; // Import Router
 
 @Component({
   selector: 'app-admin-login',
@@ -10,18 +11,17 @@ import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http'
   styleUrls: ['./admin-login.component.scss'],
 })
 export class AdminLoginComponent {
-  username: string = '';
+  phone: string = '';
   password: string = '';
-  userType: string = 'admin';
 
-  constructor(private http: HttpClient) {}
+  // Inject Router into the constructor
+  constructor(private http: HttpClient, private router: Router) {}  // Added router here
 
   login() {
-    const url = 'https://example.com/api/login'; // Replace with your API endpoint
+    const url = 'https://api.classwix.com/api/signin'; 
     const payload = {
-      username: this.username,
+      phone: this.phone,
       password: this.password,
-      userType: this.userType,
     };
 
     const headers = new HttpHeaders({
@@ -31,6 +31,12 @@ export class AdminLoginComponent {
     this.http.post(url, payload, { headers }).subscribe(
       (response: any) => {
         console.log('Login successful:', response);
+
+        // Store the token in localStorage
+        localStorage.setItem('auth_token', response.token);  // Store the token
+
+        // Redirect to the dashboard page
+        this.router.navigate(['/dashboard']);  // Ensure '/dashboard' route exists
       },
       (error) => {
         console.error('Login failed:', error);

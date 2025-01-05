@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr'; // Import ToastrService
@@ -22,6 +22,7 @@ export class CourseListComponent implements OnInit {  // Implement OnInit
     classes_id: '',
     thumbnail: null
   };
+  courses: any;
 
   constructor(private http: HttpClient, private toastr: ToastrService) {}
 
@@ -48,19 +49,35 @@ export class CourseListComponent implements OnInit {  // Implement OnInit
     formData.append('title', this.newCourse.title);
     formData.append('slug', this.newCourse.slug);
     formData.append('description', this.newCourse.description || '');
+    
     if (this.newCourse.course_category_id) {
       formData.append('course_category_id', String(this.newCourse.course_category_id));
     }
+  
     if (this.newCourse.instructor_id) {
       formData.append('instructor_id', String(this.newCourse.instructor_id));
     }
+  
     formData.append('classes_id', this.newCourse.classes_id);
+  
     if (this.newCourse.thumbnail) {
       formData.append('thumbnail', this.newCourse.thumbnail);
     }
-
-    this.http.post('https://api.classwix.com/api/course', formData).subscribe({
+  
+    console.log('Form Data:', Object.fromEntries(formData.entries()));
+  
+    // Get the token from localStorage
+    const token = localStorage.getItem('auth_token');
+  
+    // Set up headers with Authorization
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+  
+    // Send the HTTP POST request with the token in headers
+    this.http.post('https://api.classwix.com/api/courses/', formData, { headers }).subscribe({
       next: (response) => {
+        console.log('Course added successfully:', formData);
         console.log('Course added successfully:', response);
         this.toastr.success('Course added successfully!', 'Success');
         this.closeAddCourseModal();
@@ -71,12 +88,21 @@ export class CourseListComponent implements OnInit {  // Implement OnInit
       }
     });
   }
+  
 
-  // Method to handle GET request to retrieve all courses
+  
   getAllCourses() {
-    this.http.get('https://api.classwix.com/api/course').subscribe({
-      next: (response) => {
-        console.log('All courses:', response); // Display all course data in console
+    this.http.get('https://api.classwix.com/api/courses').subscribe({
+      next: (response: any) => {
+        this.courses = response.map((course: any) => ({
+          id: course.id,
+          title: course.title,
+          course_duration: course.course_duration || 'Not specified',
+          price: course.price || 'Free',
+          instructor: course.instructor?.name || 'N/A',
+          short_description: course.short_description || 'No description available',
+        }));
+        console.log('Filtered courses:', this.courses);
       },
       error: (error) => {
         console.error('Error fetching courses:', error);
@@ -84,4 +110,5 @@ export class CourseListComponent implements OnInit {  // Implement OnInit
       }
     });
   }
+  
 }

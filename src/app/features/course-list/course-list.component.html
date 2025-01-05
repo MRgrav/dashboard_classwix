@@ -1,60 +1,50 @@
 <div class="ml-64 p-6 bg-gray-100 min-h-screen">
-    <!-- Total Courses Box -->
-    <div class="bg-white p-6 rounded-lg shadow-lg mb-6">
-    
-        <button
-        (click)="openAddCourseModal()"
-        class="bg-blue-600 p-4 rounded-3xl text-white font-semibold shadow-md hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      >
-        Add Course
-      </button>
-    </div>
-   
-  
-    <!-- Course List Section -->
-    <div class="bg-white p-6 rounded-lg shadow-lg">
-      <div class="mb-4 text-xl font-semibold text-gray-800">Course List</div>
-      <div class="overflow-auto max-h-[70vh] border rounded-lg">
-        <table class="min-w-full table-auto border-collapse">
-          <thead class="bg-gray-200 sticky top-0 shadow">
-            <tr>
-              <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">ID</th>
-              <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Course Name</th>
-              <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Duration</th>
-              <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Fee</th>
-              <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Start Date</th>
-              <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">End Date</th>
-              <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Instructor</th>
-              <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Example static rows for demonstration -->
-            <tr class="border-t hover:bg-gray-50">
-              <td class="px-4 py-2 text-sm text-gray-700">1</td>
-              <td class="px-4 py-2 text-sm text-gray-700">Web Development</td>
-              <td class="px-4 py-2 text-sm text-gray-700">3 Months</td>
-              <td class="px-4 py-2 text-sm text-gray-700">$500</td>
-              <td class="px-4 py-2 text-sm text-gray-700">01-Jan-2025</td>
-              <td class="px-4 py-2 text-sm text-gray-700">31-Mar-2025</td>
-              <td class="px-4 py-2 text-sm text-gray-700">John Smith</td>
-              <td class="px-4 py-2 text-sm text-gray-700">Learn the basics of web development including HTML, CSS, and JavaScript.</td>
-            </tr>
-            <tr class="border-t hover:bg-gray-50">
-              <td class="px-4 py-2 text-sm text-gray-700">2</td>
-              <td class="px-4 py-2 text-sm text-gray-700">Data Science</td>
-              <td class="px-4 py-2 text-sm text-gray-700">6 Months</td>
-              <td class="px-4 py-2 text-sm text-gray-700">$1000</td>
-              <td class="px-4 py-2 text-sm text-gray-700">01-Feb-2025</td>
-              <td class="px-4 py-2 text-sm text-gray-700">31-Jul-2025</td>
-              <td class="px-4 py-2 text-sm text-gray-700">Alice Johnson</td>
-              <td class="px-4 py-2 text-sm text-gray-700">Explore the fundamentals of data analysis, machine learning, and AI.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+  <!-- Add Course Button -->
+  <div class="bg-white p-6 rounded-lg shadow-lg mb-6">
+    <button
+      (click)="openAddCourseModal()"
+      class="bg-blue-600 p-4 rounded-3xl text-white font-semibold shadow-md hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500"
+    >
+      Add Course
+    </button>
+  </div>
+
+  <!-- Course List Section -->
+  <div class="bg-white p-6 rounded-lg shadow-lg">
+    <div class="mb-4 text-xl font-semibold text-gray-800">Course List</div>
+    <div class="overflow-auto max-h-[70vh] border rounded-lg">
+      <table class="min-w-full table-auto border-collapse">
+        <thead class="bg-gray-200 sticky top-0 shadow">
+          <tr>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">ID</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Course Name</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Duration</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Fee</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Instructor</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let course of courses" class="border-t hover:bg-gray-50">
+            <td class="px-4 py-2 text-sm text-gray-700">{{ course.id }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ course.title }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ course.course_duration }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ course.price }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">{{ course.instructor }}</td>
+            <td class="px-4 py-2 text-sm text-gray-700">
+              {{ course.short_description }}
+            </td>
+          </tr>
+          <tr *ngIf="courses.length === 0">
+            <td class="px-4 py-2 text-center text-gray-500" colspan="6">No courses available</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
+</div>
+
+
 
   <div *ngIf="isModalOpen" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
     <div class="bg-white p-6 rounded-lg shadow-lg w-96">
