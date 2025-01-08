@@ -25,4 +25,12 @@ export class SidebarComponent {
   navigateToDashboard() {
     this.router.navigate(['/dashboard']); 
   }
+
+  navigateToTeachers() {
+    this.router.navigate(['/teachers']); 
+  }
+  navigateToTeachersGroups() {
+    this.router.navigate(['teachers/groups']); 
+  }
 }
+

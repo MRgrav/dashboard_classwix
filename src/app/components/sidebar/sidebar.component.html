@@ -5,9 +5,14 @@
     class="flex flex-col h-screen bg-gray-800 text-white fixed transition-all duration-300"
   >
     <!-- Sidebar Header -->
-    <div class="flex items-center justify-between h-16 px-4 border-b border-gray-700">
+    <div
+      class="flex items-center justify-between h-16 px-4 border-b border-gray-700"
+    >
       <h1 *ngIf="isSidebarOpen" class="text-lg font-bold">My Dashboard</h1>
-      <button (click)="toggleSidebar()" class="text-white focus:outline-none md:hidden">
+      <button
+        (click)="toggleSidebar()"
+        class="text-white focus:outline-none md:hidden"
+      >
         <span class="material-icons">menu</span>
       </button>
     </div>
@@ -15,34 +20,42 @@
     <!-- Sidebar Links -->
     <nav class="flex-grow p-4">
       <ul class="space-y-4">
-        <li>
-          <a
-          (click)="navigateToDashboard()"
-          class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-md cursor-pointer"
-        >
-          <span class="material-icons">library_add</span>
-          <span *ngIf="isSidebarOpen">Dashboard</span>
-        </a>
-        </li>
-        <li>
-          <a
-    (click)="navigateToCourses()"
-    class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-md cursor-pointer"
-  >
-    <span class="material-icons">library_add</span>
-    <span *ngIf="isSidebarOpen">Courses</span>
-  </a>
-        </li>
         <!-- <li>
           <a
-            routerLink="/add-component"
-            routerLinkActive="bg-gray-700"
-            class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-md"
+            (click)="navigateToDashboard()"
+            class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-md cursor-pointer"
           >
-            <span class="material-icons">add_box</span>
-            <span *ngIf="isSidebarOpen">Add Component</span>
+            <span class="material-icons">dashboard</span>
+            <span *ngIf="isSidebarOpen">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a
+            (click)="navigateToCourses()"
+            class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-md cursor-pointer"
+          >
+            <span class="material-icons">school</span>
+            <span *ngIf="isSidebarOpen">Courses</span>
           </a>
         </li> -->
+        <li>
+          <a
+            (click)="navigateToTeachers()"
+            class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-md cursor-pointer"
+          >
+            <span class="material-icons">person</span>
+            <span *ngIf="isSidebarOpen">Teachers</span>
+          </a>
+        </li>
+        <li>
+          <a
+            (click)="navigateToTeachersGroups()"
+            class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-md cursor-pointer"
+          >
+            <span class="material-icons">school</span>
+            <span *ngIf="isSidebarOpen">Courses</span>
+          </a>
+        </li>
       </ul>
     </nav>
 

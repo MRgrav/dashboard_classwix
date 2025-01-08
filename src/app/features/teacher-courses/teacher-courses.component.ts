@@ -52,7 +52,7 @@ export class TeacherCoursesComponent {
   
 
   // Corrected navigateToCourseDetails method
-  navigateToCourseDetails(courseId: number): void {
-    this.router.navigate([`/teachers/group/details/${courseId}`]);
+  navigateToCourseDetails(id: number): void {
+    this.router.navigate([`/teachers/group/details/${id}`]);
   }
 }

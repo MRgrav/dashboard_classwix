@@ -1,6 +1,13 @@
 <div class="ml-64 p-6 bg-gray-100 min-h-screen">
     <!-- Buttons to Open Modals -->
     <div class="bg-white p-6 rounded-lg shadow-lg mb-6 flex space-x-4">
+      <button
+      (click)="goBack()"
+      class="bg-gray-600 px-3 py-2 rounded-lg text-white font-semibold shadow-md hover:bg-gray-700 transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none  focus:ring-gray-500 flex items-center justify-center space-x-2"
+    >
+      <span class="material-icons">arrow_back</span>
+      <span>Back</span>
+    </button>
         <button
           (click)="openFileModal()"
           class="bg-blue-600 p-4 rounded-3xl text-white font-semibold shadow-md hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 w-40"
@@ -17,37 +24,136 @@
           (click)="openMeetLinkModal()"
           class="bg-orange-600 p-4 rounded-3xl text-white font-semibold shadow-md hover:bg-orange-700 transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 w-40"
         >
-          Add Meet Link
+          Live Class
         </button>
       </div>
       
-
-      <div class="bg-white p-6 rounded-lg shadow-lg">
-        <div class="mb-4 text-xl font-semibold text-gray-800">Groups</div>
-        <div class="overflow-auto max-h-[70vh] border rounded-lg">
-          <table class="min-w-full table-auto border-collapse">
-            <thead class="bg-gray-200 sticky top-0 shadow">
-              <tr>
-                <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">ID</th>
-                <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Group Name</th>
-                <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Description</th>
-                <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Course Name</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let group of groupDetails" class="border-t hover:bg-gray-50">
-                <td class="px-4 py-2 text-sm text-gray-700">{{ group.id }}</td>
-                <td class="px-4 py-2 text-sm text-gray-700">{{ group.name }}</td>
-                <td class="px-4 py-2 text-sm text-gray-700">{{ group.description || 'N/A' }}</td>
-                <td class="px-4 py-2 text-sm text-gray-700">{{ group.course?.title || 'No Course' }}</td>
-              </tr>
-              <tr *ngIf="groupDetails.length === 0">
-                <td class="px-4 py-2 text-center text-gray-500" colspan="4">No groups available</td>
-              </tr>
-            </tbody>
-          </table>
+      <div class="grid grid-cols-2 gap-6">
+        <!-- First Table -->
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <div class="mb-4 text-xl font-semibold text-gray-800">Videos</div>
+          <div class="overflow-auto max-h-[50vh] border rounded-lg">
+            <table class="min-w-full table-auto border-collapse">
+              <thead class="bg-gray-200 sticky top-0 shadow">
+                <tr>
+                  <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">SlNo.</th>
+                  <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Video URL</th>
+                  <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let video of videoDetails; let i = index" class="border-t hover:bg-gray-50">
+                  <td class="px-4 py-2 text-sm text-gray-700">{{ i + 1 }}</td>
+                  <td class="px-4 py-2 text-sm text-gray-700">
+                    <a [href]="video.video_path" target="_blank" class="text-blue-600 hover:underline">
+                      {{ video.video_path }}
+                    </a>
+                  </td>
+                  <td class="px-4 py-2 text-sm text-gray-700">
+                    <button class="text-red-500 hover:text-red-700" (click)="deleteVideo(video.id)">
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="videoDetails.length === 0">
+                  <td class="px-4 py-2 text-center text-gray-500" colspan="3">
+                    No videos available
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        
+      
+        <!-- Second Table -->
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <div class="mb-4 text-xl font-semibold text-gray-800">Files</div>
+          <div class="overflow-auto max-h-[50vh] border rounded-lg">
+            <table class="min-w-full table-auto border-collapse">
+              <thead class="bg-gray-200 sticky top-0 shadow">
+                <tr>
+                  <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">SlNo.</th>
+                  <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">File</th>
+                  <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let file of fileDetails; let i = index" class="border-t hover:bg-gray-50">
+                  <td class="px-4 py-2 text-sm text-gray-700">{{ i + 1 }}</td>
+                  <td class="px-4 py-2 text-sm text-gray-700">
+                    <a [href]="file.url" target="_blank" class="text-blue-600 hover:underline">{{ file.name }}</a>
+                  </td>
+                  <td class="px-4 py-2 text-sm text-gray-700">
+                    <button class="text-red-500 hover:text-red-700" (click)="deleteFile(file.id)">Delete</button>
+                  </td>
+                </tr>
+                <tr *ngIf="fileDetails.length === 0">
+                  <td class="px-4 py-2 text-center text-gray-500" colspan="3">No files available</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      
+        <!-- Third Table -->
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <div class="mb-4 text-xl font-semibold text-gray-800">Group Details</div>
+          <div class="overflow-auto max-h-[50vh] border rounded-lg">
+            <table class="min-w-full table-auto border-collapse">
+              <thead class="bg-gray-200 sticky top-0 shadow">
+                <tr>
+                  <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">SlNo.</th>
+                  <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Group Name</th>
+                  <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Description</th>
+                  <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Course Title</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let group of groupDetails; let i = index" class="border-t hover:bg-gray-50">
+                  <td class="px-4 py-2 text-sm text-gray-700">{{ i + 1 }}</td>
+                  <td class="px-4 py-2 text-sm text-gray-700">{{ group.name }}</td>
+                  <td class="px-4 py-2 text-sm text-gray-700">{{ group.description || 'N/A' }}</td>
+                  <td class="px-4 py-2 text-sm text-gray-700">{{ group.course?.title || 'N/A' }}</td>
+                </tr>
+                <tr *ngIf="groupDetails.length === 0">
+                  <td class="px-4 py-2 text-center text-gray-500" colspan="4">No groups available</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      
+        <!-- Fourth Table -->
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <div class="mb-4 text-xl font-semibold text-gray-800">User Details</div>
+          <div class="overflow-auto max-h-[50vh] border rounded-lg">
+            <table class="min-w-full table-auto border-collapse">
+              <thead class="bg-gray-200 sticky top-0 shadow">
+                <tr>
+                  <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">SlNo.</th>
+                  <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Name</th>
+                  <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Email</th>
+                  <th class="px-4 py-2 text-left text-sm font-medium text-gray-900">Phone</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let user of groupDetails[0]?.users || []; let i = index" class="border-t hover:bg-gray-50">
+                  <td class="px-4 py-2 text-sm text-gray-700">{{ i + 1 }}</td>
+                  <td class="px-4 py-2 text-sm text-gray-700">{{ user.name }}</td>
+                  <td class="px-4 py-2 text-sm text-gray-700">{{ user.email }}</td>
+                  <td class="px-4 py-2 text-sm text-gray-700">{{ user.phone }}</td>
+                </tr>
+                <tr *ngIf="(groupDetails[0]?.users || []).length === 0">
+                  <td class="px-4 py-2 text-center text-gray-500" colspan="4">No users available</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
+      
       
   
   <!-- File Modal -->
@@ -64,9 +170,11 @@
   
   <!-- Video Link Modal -->
   <div *ngIf="isVideoLinkModalOpen" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-      <h3 class="text-2xl font-semibold mb-4">Add Video Link</h3>
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96 space-y-6 ">
+     
       <input [(ngModel)]="newVideoLink" name="videoLink" class="w-full p-2 border" placeholder="Enter video link" />
+    
+      <input [(ngModel)]="newVideoTitle" name="videoTitle" class="w-full p-2 border" placeholder="Enter video Title" />
       <div class="flex justify-between mt-4">
         <button (click)="closeVideoLinkModal()" class="bg-gray-300 p-2 rounded-lg">Cancel</button>
         <button (click)="submitVideoLink()" class="bg-blue-600 text-white p-2 rounded-lg">Submit</button>
@@ -77,7 +185,7 @@
   <!-- Meet Link Modal -->
   <div *ngIf="isMeetLinkModalOpen" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
     <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-      <h3 class="text-2xl font-semibold mb-4">Add Meet Link</h3>
+      <h3 class="text-2xl font-semibold mb-4">Live Class</h3>
       <input [(ngModel)]="newMeetLink" name="meetLink" class="w-full p-2 border" placeholder="Enter meet link" />
       <div class="flex justify-between mt-4">
         <button (click)="closeMeetLinkModal()" class="bg-gray-300 p-2 rounded-lg">Cancel</button>
