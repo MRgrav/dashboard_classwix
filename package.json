@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 3007",
-    "prod": "ng serve --configuration=production",
+    "prod": "ng serve --configuration=production --port 3007",
     "build": "ng build --configuration=production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
