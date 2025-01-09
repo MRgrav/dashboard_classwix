@@ -36,7 +36,7 @@ export class AdminLoginComponent {
         localStorage.setItem('auth_token', response.token);  // Store the token
 
         // Redirect to the dashboard page
-        this.router.navigate(['/teachers']);  // Ensure '/dashboard' route exists
+        this.router.navigate(['/teachers/groups']);  // Ensure '/dashboard' route exists
       },
       (error) => {
         console.error('Login failed:', error);
